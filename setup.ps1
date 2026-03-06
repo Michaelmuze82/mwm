@@ -1,5 +1,5 @@
 # MWM One-Line Installer
-# Usage: iwr https://raw.githubusercontent.com/Michaelmuze82/mwm-framework/master/setup.ps1 | iex
+# Usage: iwr https://raw.githubusercontent.com/Michaelmuze82/mwm/master/setup.ps1 | iex
 
 Write-Host ""
 Write-Host "  Installing MWM Framework..." -ForegroundColor Red
@@ -14,12 +14,12 @@ if (Test-Path "$installDir\.git") {
 } else {
     if (Test-Path $installDir) { Remove-Item $installDir -Recurse -Force }
     Write-Host "  [*] Downloading MWM..." -ForegroundColor Cyan
-    git clone --quiet https://github.com/Michaelmuze82/mwm-framework.git $installDir 2>$null
+    git clone --quiet https://github.com/Michaelmuze82/mwm.git $installDir 2>$null
     if ($LASTEXITCODE -ne 0) {
         # Fallback: download as zip if git isn't available
         Write-Host "  [*] Git not found, downloading zip..." -ForegroundColor Yellow
         $zip = "$env:TEMP\mwm.zip"
-        Invoke-WebRequest -Uri "https://github.com/Michaelmuze82/mwm-framework/archive/refs/heads/master.zip" -OutFile $zip
+        Invoke-WebRequest -Uri "https://github.com/Michaelmuze82/mwm/archive/refs/heads/master.zip" -OutFile $zip
         Expand-Archive -Path $zip -DestinationPath "$env:TEMP\mwm-extract" -Force
         Move-Item "$env:TEMP\mwm-extract\mwm-framework-master" $installDir -Force
         Remove-Item $zip -Force
